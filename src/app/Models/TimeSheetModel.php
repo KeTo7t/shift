@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Log;
  *
  * @package App\Models
  * @property int $id
- * @property string $bussiness_day
+ * @property string $business_day
  * @property int $work_place_type
  * @property string $start_time
  * @property string $end_time
@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Log;
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TimeSheetModel date($date)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TimeSheetModel member($memberId)
- * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TimeSheetModel whereBussinessDay($value)
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TimeSheetModel wherebusinessDay($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TimeSheetModel whereEndTime($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TimeSheetModel whereId($value)
  * @method \Illuminate\Database\Eloquent\Builder|\App\Models\TimeSheetModel whereMemberId($value)
@@ -56,8 +56,9 @@ class TimeSheetModel extends Model
     protected $table = "t_timesheet";
     protected $fillable = [
         'member_id',
-        "bussiness_day"
+        "business_day"
     ];
+
     protected $appends = array('work_time');
 
     // Accessors
@@ -76,7 +77,7 @@ class TimeSheetModel extends Model
 
     public function scopeDate(Builder $query, $date)
     {
-        return $query->where("bussiness_day", $date);
+        return $query->where("business_day", $date);
     }
 
 
@@ -109,7 +110,7 @@ class TimeSheetModel extends Model
     {
         $d = new Carbon($date);
 
-        $query->whereBetween("bussiness_day", [$d->startOfMonth()->copy(), $d->endOfMonth()]);
+        $query->whereBetween("business_day", [$d->startOfMonth()->copy(), $d->endOfMonth()]);
         return $query;
 
     }
@@ -117,7 +118,7 @@ class TimeSheetModel extends Model
     {
         $d = new Carbon($date);
         $d->subMonth();
-        $query->whereBetween("bussiness_day", [$d->startOfMonth()->copy(), $d->endOfMonth()]);
+        $query->whereBetween("business_day", [$d->startOfMonth()->copy(), $d->endOfMonth()]);
         return $query;
 
     }
@@ -125,7 +126,7 @@ class TimeSheetModel extends Model
     {
         $d = new Carbon($date);
 
-        $query->whereBetween("bussiness_day", [$d->startOfWeek()->copy(), $d->endOfWeek()]);
+        $query->whereBetween("business_day", [$d->startOfWeek()->copy(), $d->endOfWeek()]);
         return $query;
 
     }
@@ -134,7 +135,7 @@ class TimeSheetModel extends Model
     {
         $d = new Carbon($date);
 
-        $query->whereBetween("bussiness_day", [$d->copy()->subDay($daysPrevious), $d->endOfDay()]);
+        $query->whereBetween("business_day", [$d->copy()->subDay($daysPrevious), $d->endOfDay()]);
         return $query;
 
     }

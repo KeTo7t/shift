@@ -46,7 +46,7 @@ class ReportFormatModel extends Model
     protected $table = "m_report_format";
     protected $fillable = [
         'member_id',
-        "bussiness_day"
+        "business_day"
     ];
 
 

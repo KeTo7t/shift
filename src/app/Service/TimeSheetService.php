@@ -49,7 +49,7 @@ class TimeSheetService
     {
         \Log::debug(print_r($date ,true));
         \Log::debug(print_r($time ,true));
-        $this->timeSheetModel = TimeSheetModel::firstOrNew(["member_id" => $memberId, "bussiness_day" => $date]);
+        $this->timeSheetModel = TimeSheetModel::firstOrNew(["member_id" => $memberId, "business_day" => $date]);
         $this->timeSheetModel->start_time = $time;
         $this->timeSheetModel->work_type=1;
         return $this->timeSheetModel->save();
@@ -63,7 +63,7 @@ class TimeSheetService
      */
     function saveTimeSheetEnd($memberId, $date, $time)
     {
-        $this->timeSheetModel = TimeSheetModel::firstOrNew(["member_id" => $memberId, "bussiness_day" => $date]);
+        $this->timeSheetModel = TimeSheetModel::firstOrNew(["member_id" => $memberId, "business_day" => $date]);
         $this->timeSheetModel->end_time =  $time;
         $this->timeSheetModel->work_type=1;
         return $this->timeSheetModel->save();
@@ -99,8 +99,8 @@ class TimeSheetService
 
         \Log::debug(print_r($query->toSql(),true));
         \Log::debug(print_r($query->getBindings(),true));
-        //$timeSheetCollection = $query->orderBy("bussiness_day")->get(["bussiness_day", "start_time", "end_time","work_time"]);
-        $timeSheetCollection = $query->orderBy("bussiness_day")->get();
+        //$timeSheetCollection = $query->orderBy("business_day")->get(["business_day", "start_time", "end_time","work_time"]);
+        $timeSheetCollection = $query->orderBy("business_day")->get();
 
 
         //上位層で扱いやすいようにjsonかArrayで返却

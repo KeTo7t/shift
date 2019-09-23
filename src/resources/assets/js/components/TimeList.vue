@@ -13,7 +13,7 @@
                 <td class="timeSheetCell">実働時間</td>
             </tr>
             <tr class="timeSheetRow" v-for="date  in timesheet">
-                <td class="timeSheetCell">{{date.bussiness_day}}</td>
+                <td class="timeSheetCell">{{date.business_day}}</td>
                 <td class="timeSheetCell">{{date.week_day}}</td>
                 <td class="timeSheetCell">{{date.start_time}}</td>
                 <td class="timeSheetCell">{{date.end_time}}</td>
@@ -60,13 +60,14 @@
                         if (response.status != 200) {
                         } else {
                           var convertedTimeSheet= response.data.map(function(e){
-                                e["week_day"]=moment(e.bussiness_day).format("ddd")
+                                e["week_day"]=moment(e.business_day).format("ddd")
                                 return e
                             })
 
 
-
+                            console.log(convertedTimeSheet)
                             this.timesheet = convertedTimeSheet
+
                         }
                         return
                     }

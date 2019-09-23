@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Log;
  *
  * @package App\Models
  * @property int $id
- * @property string|null $bussiness_day_start
- * @property string|null $bussiness_day_end
+ * @property string|null $business_day_start
+ * @property string|null $business_day_end
  * @property string|null $start_time
  * @property string|null $end_time
  * @property int|null $work_type 1:現場稼働   2~：社内作業
@@ -27,8 +27,8 @@ use Illuminate\Support\Facades\Log;
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel date($date)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel member($memberId)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel whereBussinessDayEnd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel whereBussinessDayStart($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel wherebusinessDayEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel wherebusinessDayStart($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel whereEndTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ShiftModel whereId($value)
@@ -52,12 +52,12 @@ class ShiftModel extends Model
     protected $table = "t_shift";
     protected $fillable = [
         'member_id',
-        "bussiness_day"
+        "business_day"
     ];
 
     public  function scopeDate(Builder $query, $date)
     {
-        $query->where("bussiness_day_start" ,"<=",$date) ->where("bussiness_day_end" ,">=",$date) ;
+        $query->where("business_day_start" ,"<=",$date) ->where("business_day_end" ,">=",$date) ;
         return;
     }
 
