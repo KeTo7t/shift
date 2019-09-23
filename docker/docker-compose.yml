@@ -1,0 +1,29 @@
+version: '2.1'
+
+services:
+  db:
+    build: ./db
+    container_name: db
+    ports:
+     - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: keiji
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: test
+    volumes: 
+      - ./workspace/mysql/:/var/lib/mysql/
+
+  web:
+
+    build: ./web
+    container_name: web
+    ports:
+      - "80:80"
+    links:
+      - db
+    volumes:
+      - ../src:/var/www/source/
+      - ./workspace/httpdLogs:/var/log/httpd
+      - ./web/conf.d/:/etc/httpd/conf.d/
+

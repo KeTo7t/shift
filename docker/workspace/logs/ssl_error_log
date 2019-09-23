@@ -1,0 +1,2 @@
+[Tue Nov 06 03:30:04.019379 2018] [ssl:warn] [pid 1] AH01909: RSA certificate configured for 172.24.0.3:443 does NOT include an ID which matches the server name
+[Tue Nov 06 03:30:04.052658 2018] [ssl:warn] [pid 1] AH01909: RSA certificate configured for 172.24.0.3:443 does NOT include an ID which matches the server name
