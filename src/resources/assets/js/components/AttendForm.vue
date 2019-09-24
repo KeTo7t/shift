@@ -9,6 +9,7 @@
             <div class="col">時間:<input type="time" v-model="time"></div>
         </div>
         <div>・プリセット</div>
+
         <div v-model="shift">シフト時間を適用：
             <button v-on:click="setShiftStart">{{shift.start}}</button>
             -

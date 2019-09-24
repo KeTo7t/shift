@@ -20,9 +20,10 @@ Route::get('/info', function(){phpinfo();});
 
 
 
-
+Route::get('/manage/shift', 'ShiftController@index');
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@attend');
+
 Route::get('/logout', 'HomeController@logout');
 
 Route::get('/list', "API\WorkTimeAPIController@timelist");

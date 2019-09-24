@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\TimeSheetModel;
-use App\Service\TimeSheetService;
+use App\Service\WorkShiftService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
@@ -19,7 +19,7 @@ class WorkTimeAPIController extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     protected $service, $logined, $memberId;
 
-    function __construct(TimeSheetService $service)
+    function __construct(WorkShiftService $service)
     {
         $this->service = $service;
 

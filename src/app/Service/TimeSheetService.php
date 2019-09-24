@@ -85,7 +85,7 @@ class TimeSheetService
                 $query=$query->previousMonth($date);
                 break;
             case "currentMonth":
-                $query=$query->currentMonth($date);
+                $query=$query->4currentMonth($date);
                 break;
             case "7days":
                 $query=$query->dayBetween($date,7);

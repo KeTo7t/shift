@@ -27,9 +27,10 @@ RUN yum clean all
 
 
 
-
 # for web
 EXPOSE 80
+EXPOSE 4434
+EXPOSE 8080
 
 CMD /usr/sbin/httpd -DFOREGROUND
 

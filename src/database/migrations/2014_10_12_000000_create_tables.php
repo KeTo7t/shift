@@ -39,9 +39,8 @@ class CreateTables extends Migration
             $table->increments('id');
             $table->integer('member_id')->nullable();
             $table->integer('work_type')->nullable()->default(0);
-            $table->date('business_day_start')->nullable()->default(null);
-            $table->date('business_day_end')->nullable()->default(null);
-            $table->date('business_day')->nullable()->default(null);
+            $table->date('shift_start_date')->nullable()->default(null);
+            $table->date('shift_end_date')->nullable()->default(null);
             $table->time('start_time')->nullable()->default(null);
             $table->time('end_time')->nullable()->default(null);
             $table->integer('rest_time')->default(0);
