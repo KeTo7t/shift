@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Repositories\userRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use App\Models\SocialAccount;
-
 use Illuminate\Http\Request;
 use Laravel\Socialite\Two\GoogleProvider;
 
@@ -35,21 +33,31 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/home';
 
+
+    private $userRepository;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request ,userRepository $userRepository)
     {
+
+        $this->userRepository = $userRepository;
+
+
         Log::debug("ログインチェック");
         if (Auth::check()) {
             Log::debug("ログイン済み");
 
 
+        } else {
+            Log::debug("未ログイン");
         }
 
-        $this->middleware('guest')->except('logout');
+
+          $this->middleware('guest')->except('logout');
 
 
     }
@@ -75,27 +83,49 @@ class LoginController extends Controller
     {
 
 
+        Log::debug(      $request->hasSession());
         /* @var  \Laravel\Socialite\Two\User $user */
         /* @var  GoogleProvider $socialite */
 
-        $socialite= Socialite::driver($provider);
-//        dump($socialite);
-//        dump($request->session()->pull('state'));
-//        dump($request->input('state'));
-//        exit;
+        $socialite = Socialite::driver($provider);
         $user = $socialite->user();
+$email=$user->getEmail();
 
+        if ($request->hasSession()) {
+            Log::debug( "dddd");
+            return redirect($this->redirectTo);
+        }elseif($this->userRepository->emailExists($email)){
+            Auth::login($user);
+            return redirect($this->redirectTo);
+
+        };
 
         if (empty(Auth::getUser())) {
-            $user = User::firstOrCreate([
+            Log::debug( "ccc");
+            $user = [
                 'name' => $user->getName(),
-                'email' => $user->getEmail()
-            ]);
-            Auth::login($user);
+                'email' => $user->getEmail()];
+
+            return view("regist_user", $user);
+
         }
 
-
+        Log::debug( "aabbb");
         return redirect($this->redirectTo);
     }
 
+
+    public function registUser(Request $request)
+    {
+        Log::debug($request->input());
+
+        Log::debug($request->post());
+        $name = $request->input("name");
+        $email = $request->input("email");
+        $user = $this->userRepository->registUser($name, $email);
+
+        $login = Auth::login($user);
+
+        return redirect($this->redirectTo);
+    }
 }

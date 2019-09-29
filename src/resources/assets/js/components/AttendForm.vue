@@ -68,7 +68,7 @@
             },
             requestAttendTime: function (type) {
 
-                axios.get("/attend/" + type, {params: {date: this.date, time: this.time}}).then(
+                axios.post("/attend/" + type, {params: {date: this.date, time: this.time}}).then(
                     (response) => {
                         if (response.status != 200) {
                             alert("register Error");
@@ -92,8 +92,10 @@
                         if (response.status != 200) {
                             console.log("get Error");
                         } else {
-                            this.shift.start = response.data[0].start_time;
-                            this.shift.end = response.data[0].end_time;
+                            console.log(response.data.start_time)
+                            console.log(response.data.data.start_time)
+                            this.shift.start = response.data.start_time;
+                            this.shift.end = response.data.end_time;
 
 
                         }

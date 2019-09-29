@@ -94,6 +94,8 @@
                         if (response.status != 200) {
                             console.log("get Error");
                         } else {
+                            console.log(response.data.start_time)
+                            console.log(response.data.data.start_time)
                             this.shift.start = response.data[0].start_time;
                             this.shift.end = response.data[0].end_time;
 

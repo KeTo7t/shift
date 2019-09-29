@@ -34,12 +34,12 @@ class HomeController extends BaseController
 
  //       if($request->session()->get("logined") ){
         if(\Auth::check()){
-
+            Log::debug("abababab");
 //            print_r($request->session()->all());
             return view("attend");
         }else{
 
-
+            Log::debug("cbcbcbcb");
 
 
             return view("login");

@@ -13,15 +13,15 @@
 
 */
 
-Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
-
+Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::post('/login/regist', 'Auth\LoginController@registUser');
 Route::get('/info', function(){phpinfo();});
 
 
 
 Route::get('/manage/shift', 'ShiftController@index');
-Route::get('/', 'HomeController@index');
+
 Route::get('/home', 'HomeController@attend');
 
 Route::get('/logout', 'HomeController@logout');
@@ -29,7 +29,7 @@ Route::get('/logout', 'HomeController@logout');
 Route::get('/list', "API\WorkTimeAPIController@timelist");
 
 Route::get("shift","API\WorkTimeAPIController@currentDayShift");
-Route::get("attend/{type}","API\WorkTimeAPIController@registAttend");
+Route::post("attend/{type}","API\WorkTimeAPIController@registAttend");
 
 
 Route::get("manage/report_format","ManageController@reportFormat");
@@ -42,7 +42,7 @@ Route::get("/api/report_format/save","API\ReportFormatAPIController@SaveReportFo
 
 
 
-
+Route::get('/', 'HomeController@index');
 
 //
 //Route::get('/vue', function () {

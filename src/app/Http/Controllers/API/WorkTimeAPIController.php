@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\TimeSheetModel;
+use App\Service\TimeSheetService;
 use App\Service\WorkShiftService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -17,11 +18,11 @@ use Illuminate\Support\Facades\Auth;
 class WorkTimeAPIController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    protected $service, $logined, $memberId;
+    protected $timeSheetService, $logined, $memberId;
 
-    function __construct(WorkShiftService $service)
+    function __construct(TimeSheetService $timeSheetService)
     {
-        $this->service = $service;
+        $this->timeSheetService = $timeSheetService;
 
 
     }
@@ -31,17 +32,10 @@ class WorkTimeAPIController extends BaseController
         if (Auth::check()) {
             $id = Auth::getUser()->getAttribute("id");
 
-            $date = $request->input("date");
-            $time = $request->input("time");
-            if ($type == "start") {
-                Log::debug($date);
-                Log::debug($time);
-                $result = $this->service->saveTimeSheetStart($id, $date,$time);
+            $date = $request->input("params.date");
+            $time = $request->input("params.time");
+            $result = $this->timeSheetService->saveTimeSheet($type,$id, $date,$time);
 
-
-            } else {
-                $result = $this->service->saveTimeSheetEnd($id, $date,$time);
-            }
 
             if ($result == true) {
                 return response("登録成功", 200);
@@ -68,7 +62,7 @@ class WorkTimeAPIController extends BaseController
             $id = Auth::getUser()->getAttribute("id");
 
 
-            $result = $this->service->getTimeSheetList($id, $term ,$date);
+            $result = $this->timeSheetService->getTimeSheetList($id, $term ,$date);
 
             return response()->json($result);
         }
@@ -83,7 +77,7 @@ class WorkTimeAPIController extends BaseController
 
             $id = Auth::getUser()->getAttribute("id");
 
-            $result = $this->service->getShift($id,Carbon::today());
+            $result = $this->timeSheetService->getShift($id,Carbon::today());
 
             return response()->json($result);
         }

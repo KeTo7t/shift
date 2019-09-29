@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $provider_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read \App\Models\User $user
+ * @property-read \App\Models\UserModel $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialAccount whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialAccount whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SocialAccount whereProvider($value)
@@ -41,6 +41,6 @@ class SocialAccount extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\UserModel');
     }
 }
